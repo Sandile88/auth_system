@@ -1,16 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./database/connectDB.js";
+import authRoutes from "./routes/auth.route.js";
 
 
 dotenv.config();
 
 const app = express();
 
-app.get("/", (request, result) => {
-    result.send("Testing!");
-
+app.get("/", (request, response) => {
+    response.send("Testing!");
 })
+
+app.use("/api/auth", authRoutes);
+
 
 app.listen(3000, () => {
     connectDB();

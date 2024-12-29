@@ -14,7 +14,7 @@ export const signup = async (request, response) => {
         console.log("This user already exists.", userAlreadyExists);
 
         if(userAlreadyExists) {
-            throw new Error("This user already exists!")
+			return response.status(400).json({ success: false, message: "User already exists!" });
         }
 
         const hashedPassword = await bcryptjs.hash(password, 12);
@@ -32,9 +32,18 @@ export const signup = async (request, response) => {
 
         //jwt
         createTokenAndSetCookie(response, user._id);
-    } catch (error) {
-        throw new Error("Error encoutered: ", error.message);
+        response.status(201).json({
+            success: true,
+            message: "User created sucessfully",
+            user: {
+                ...user._doc,
+                password: undefined,
+            },
+        });
         
+    } catch (error) {
+        // throw new Error("Error encoutered: ", error.message);
+		response.status(400).json({ success: false, message: error.message });
     }
 }
 export const login = async (request, response) => {

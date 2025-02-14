@@ -4,7 +4,7 @@ import { connectDB } from "./database/connectDB.js";
 import authRoutes from "./routes/auth.route.js";
 
 
-dotenv.config();
+dotenv.config(); //to access.env values
 
 const app = express();
 const PORT = process.env.PORT || 5000;

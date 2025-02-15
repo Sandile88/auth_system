@@ -80,7 +80,9 @@ export const verifyEmail = async (request, response) => {
         });
 
     } catch (error) {
-        
+        console.lof("Error in verifying email", error); 
+		response.status(500).json({ success: false, message: "Server error" });
+
     }
 
 }
@@ -89,5 +91,6 @@ export const login = async (request, response) => {
     response.send("login route");
 }
 export const logout = async (request, response) => {
-    response.send("logout route");
+    response.clearCookie("authToken");
+    response.status(200).json({success: true, message: "Logged out successfully"});
 }

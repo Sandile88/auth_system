@@ -80,7 +80,7 @@ export const verifyEmail = async (request, response) => {
         });
 
     } catch (error) {
-        console.lof("Error in verifying email", error); 
+        console.log("Error in verifying email", error); 
 		response.status(500).json({ success: false, message: "Server error" });
 
     }
@@ -91,7 +91,7 @@ export const login = async (request, response) => {
     const { email, password} = request.body;
 
     try {
-        const user = await findOne({ email });
+        const user = await User.findOne({ email });
         if(!user) {
             return response.status(400).json({ success: false, message: "Invalid credentials"});
         }
@@ -102,7 +102,7 @@ export const login = async (request, response) => {
         }
 
         createTokenAndSetCookie(response, user._id);
-        user.lastLogin = new Date.now();
+        user.lastLogin = new Date();
         await user.save();
 
         response.status(200).json({
@@ -115,6 +115,8 @@ export const login = async (request, response) => {
         });
     } catch (error) {
         
+        console.log("Error in logging in", error); 
+		response.status(500).json({ success: false, message: "Server error" });
     }
 }
 

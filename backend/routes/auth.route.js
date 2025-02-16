@@ -3,6 +3,9 @@ import { login, logout, signup, verifyEmail, forgotPassword, resetPassword } fro
 
 const router = express.Router();
 
+//will help to check whether user is authenticated or not
+router.get("/check-auth", verifyToken, checkAuth);
+
 router.post("/signup", signup);
 
 router.post("/login", login);

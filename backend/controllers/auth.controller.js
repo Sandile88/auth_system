@@ -1,7 +1,8 @@
  import { User } from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
+import crypto from "crypto";
 import { createTokenAndSetCookie } from "../utils/createTokenAndSetCookie.js";
-import { sendPasswordResetSuccess, sendVerificationEmail, sendWelcomeEmail } from "../mailtrap/emails.js";
+import { sendPasswordResetSuccess, sendVerificationEmail, sendWelcomeEmail, sendForgotPasswordEmail } from "../mailtrap/emails.js";
 
 export const signup = async (request, response) => {
     const { name, email, password} = request.body;
@@ -126,35 +127,43 @@ export const forgotPassword = async (request, response) => {
     try {
         const user = await User.findOne({ email: email })
 
-        if (!user) {
-            return response.status(400).json({success: false, message: "User email not found"})
-        }
+        if (!user) { return response.status(400).json({success: false, message: "User not found"})}
+
+        // generating reset token
+        const resetToken = crypto.randomBytes(20).toString("hex");
+        const resetTokenExpiresAt = Date.now() + 0.25 * 60 * 60 * 30 //15 mins
+
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordTokenExpiredAt = resetTokenExpiresAt;
 
         await user.save();
 
-        await sendForgotPasswordEmail(user.email);
-        response.status(200).json({
-            success: true,
-            message: "Password reset email sent successfully",
-            user: {
-                ...user.doc,
-                password: undefined,
-            },
-        });
+        
+        await sendForgotPasswordEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`);
+        // response.status(200).json({
+        //     success: true,
+        //     message: "Password reset email sent successfully",
+        //     user: {
+        //         ...user.doc,
+        //         password: undefined,
+        //     },
+        // });
+        response.status(200).json({ success: true, message: "Password reset link sent your email" });
 
-        await sendPasswordResetSuccess(user.email);
-        response.status(200).json({
-            success: true,
-            message: "Successful password reset email sent",
-            user: {
-                ...user.doc,
-                password: undefined,
-            },
-        });
+
+        // await sendPasswordResetSuccess(user.email);
+        // response.status(200).json({
+        //     success: true,
+        //     message: "Successful password reset email sent",
+        //     user: {
+        //         ...user.doc,
+        //         password: undefined,
+        //     },
+        // });
 
         
     } catch (error) {
-        console.log("Error in verifying email", error); 
+        console.log("Error in forgotPassword functionality", error); 
 		response.status(500).json({ success: false, message: "Server error" });
     }
 }

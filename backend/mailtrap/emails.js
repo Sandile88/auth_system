@@ -41,7 +41,7 @@ export const sendWelcomeEmail = async (email, name) => {
     }
 }
 
-export const sendForgotPasswordEmail = async (email) => {
+export const sendForgotPasswordEmail = async (email, resetURL) => {
     const recipient = [{ email }];
 
     try {
@@ -49,8 +49,8 @@ export const sendForgotPasswordEmail = async (email) => {
             from: sender,
             to: recipient,
             subject: "Reset your password",
-            html: PASSWORD_RESET_REQUEST_TEMPLATE,
-            category: "Reset Password",
+            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}", resetURL),
+            category: "Password Rest",
         })
         console.log("Password reset email sent successfully", response);
     } catch (error) {

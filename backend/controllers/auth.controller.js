@@ -2,7 +2,7 @@
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 import { createTokenAndSetCookie } from "../utils/createTokenAndSetCookie.js";
-import { sendPasswordResetSuccess, sendVerificationEmail, sendWelcomeEmail, sendForgotPasswordEmail } from "../mailtrap/emails.js";
+import { sendResetSuccessEmail, sendVerificationEmail, sendWelcomeEmail, sendForgotPasswordEmail } from "../mailtrap/emails.js";
 
 export const signup = async (request, response) => {
     const { name, email, password} = request.body;
@@ -117,8 +117,13 @@ export const login = async (request, response) => {
     } catch (error) {
         
         console.log("Error in logging in", error); 
-		response.status(500).json({ success: false, message: "Server error" });
+		response.status(500).json({ success: false, message: error.message });
     }
+}
+
+export const logout = async (request, response) => {
+    response.clearCookie("authToken");
+    response.status(200).json({success: true, message: "Logged out successfully"});
 }
 
 export const forgotPassword = async (request, response) => {
@@ -164,11 +169,40 @@ export const forgotPassword = async (request, response) => {
         
     } catch (error) {
         console.log("Error in forgotPassword functionality", error); 
-		response.status(500).json({ success: false, message: "Server error" });
+		response.status(500).json({ success: false, message: error.message });
     }
 }
 
-export const logout = async (request, response) => {
-    response.clearCookie("authToken");
-    response.status(200).json({success: true, message: "Logged out successfully"});
+export const resetPassword = async (request, response) => {
+
+    try {
+        const { password } = request.body;
+        const { authToken } = request.params;
+
+        const user = await User.findOne({
+            resetPasswordToken: authToken,
+            resetPasswordTokenExpiredAt: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return response.status(400).json({ success: false, message: "Invalid or expired reset token" });
+        }
+
+        const hashedPassword = await bcryptjs.hash(password, 12);
+
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordTokenExpiredAt = undefined;
+
+        await user.save();
+
+        await sendResetSuccessEmail(user.email);
+    
+        response.status(200).json({ success: true, message: "Password reset successful" });
+
+    } catch (error) {
+        console.log("Error in resetPassword functionality", error); 
+		response.status(500).json({ success: false, message: error.message });
+    }
+
 }

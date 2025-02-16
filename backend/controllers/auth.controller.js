@@ -101,7 +101,7 @@ export const login = async (request, response) => {
             return response.status(400).json({ success: false, message: "Invalid credentials"});
         }
 
-        createTokenAndSetCookie(response, user._id);
+        createTokenAndSetCookie(response, user._id );
         user.lastLogin = new Date();
         await user.save();
 
@@ -116,6 +116,36 @@ export const login = async (request, response) => {
     } catch (error) {
         
         console.log("Error in logging in", error); 
+		response.status(500).json({ success: false, message: "Server error" });
+    }
+}
+
+export const forgotPassword = async (request, response) => {
+    const { email } = request.body;
+
+    try {
+        const user = await User.findOne({
+            email: email
+        })
+
+        if (!user) {
+            return response.status(400).json({success: false, message: "User email not found"})
+        }
+
+        await user.save();
+
+        await sendForgotPasswordEmail(user.email);
+        response.status(200).json({
+            success: true,
+            message: "Password reset email sent successfully",
+            user: {
+                ...user.doc,
+                password: undefined,
+            },
+        });
+        
+    } catch (error) {
+        console.log("Error in verifying email", error); 
 		response.status(500).json({ success: false, message: "Server error" });
     }
 }

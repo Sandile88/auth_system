@@ -47,10 +47,9 @@ export const signup = async (request, response) => {
         });
         
     } catch (error) {
-        // throw new Error("Error encoutered: ", error.message);
 		response.status(400).json({ success: false, message: error.message });
     }
-}
+};
 
 export const verifyEmail = async (request, response) => {
     const {code} = request.body;
@@ -86,7 +85,7 @@ export const verifyEmail = async (request, response) => {
 
     }
 
-}
+};
 
 export const login = async (request, response) => {
     const { email, password} = request.body;
@@ -117,14 +116,14 @@ export const login = async (request, response) => {
     } catch (error) {
         
         console.log("Error in logging in", error); 
-		response.status(500).json({ success: false, message: error.message });
+		response.status(400).json({ success: false, message: error.message });
     }
-}
+};
 
 export const logout = async (request, response) => {
     response.clearCookie("authToken");
     response.status(200).json({success: true, message: "Logged out successfully"});
-}
+};
 
 export const forgotPassword = async (request, response) => {
     const { email } = request.body;
@@ -150,9 +149,10 @@ export const forgotPassword = async (request, response) => {
 
     } catch (error) {
         console.log("Error in forgotPassword functionality", error); 
-		response.status(500).json({ success: false, message: error.message });
+		response.status(400).json({ success: false, message: error.message });
     }
-}
+};
+
 export const resetPassword = async (request, response) => {
     try {
         const { password } = request.body;
@@ -195,6 +195,21 @@ export const resetPassword = async (request, response) => {
 
     } catch (error) {
         console.error("Error in resetPassword functionality:", error); 
-        response.status(500).json({ success: false, message: error.message});
+        response.status(400).json({ success: false, message: error.message});
+    }
+};
+
+export const checkAuth = async (request, response) => {
+    try {
+        const user = await User.findById(request.userId).select("-password"); //used to avoid defining password in response
+        if (!user) { 
+            return response.status(400).json({success: false, message: "User not found"})
+        }
+
+        response.status(200).json({ success: true, user });
+
+    } catch (error) {
+        console.error("Error in checkAuth functionality:", error); 
+        response.status(400).json({ success: false, message: error.message});
     }
 }

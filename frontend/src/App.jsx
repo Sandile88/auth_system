@@ -1,11 +1,28 @@
-// function App() {
+import Login from "./pages/Login"
+import SignUp from "./pages/SignUp"
+import { Routes, Route } from 'react-router-dom';
 
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br 
-//     from-gray-900 via-green-900 to-emerald-900 flex items-center justify-center relative overflow-hidden">
-//       <h1 className='text-blue-500 text-6xl'> testing</h1>
-//     </div>
-//   )
-// }
 
-// export default App
+function App() {
+
+  return (
+    <div className="min-h-screen relative">
+        <video 
+        autoPlay 
+        loop 
+        muted 
+        className="absolute top-0 left-0 w-full h-full object-cover z-0" src="/background.mp4">
+        </video>
+        <div className="relative z-10">
+            <Routes>
+                <Route path="/" element={"Home"}/>
+                <Route path="/signup" element={<SignUp/>}/>
+                <Route path="/login" element={<Login/>}/>
+            </Routes>
+
+        </div>
+    </div>
+  )
+}
+
+export default App

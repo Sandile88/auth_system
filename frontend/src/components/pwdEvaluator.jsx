@@ -58,6 +58,14 @@ const PwdEvaluator =({ password }) => {
                 <span className="text-xs text-gray-400">Password Strength</span>
                 <span className="text-xs text-gray-400">{getStrengthText(strength)}</span>
             </div>
+
+            <div className="flex space-x-1">
+                {[...Array(4)].map((_, index) => (
+                    <div key={index} className={`h-1 w-1/4 rounded-full transition-colors duration-300 ${index < strength ? getColour(strength) : "bg-gray-600"}`}/>
+
+                ))}
+            </div>
+            <PwdCriteria password={password}/>
         </div>
     )
 }

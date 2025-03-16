@@ -6,7 +6,7 @@ const PwdCriteria = ({ password }) => {
         { label : "Contains uppercase letter", met: /[A-Z]/.test(password) },
         { label : "Contains lowercase letter", met: /[a-z]/.test(password) },
         { label : "Contains a number", met: /\d/.test(password)},
-        { label : "COntains special character", met: /[^A-Za-z0-9]/test(password)},
+        { label : "Contains special character", met: /[^A-Za-z0-9]/.test(password)},
     ];
 
     return (
@@ -29,9 +29,9 @@ const PwdEvaluator =({ password }) => {
     const getStrength = ( pwd ) => {
         let strength = 0;
         if (pwd.length >= 8) strength++;
-        if (pass.match(/[a-z]/) && pass.match(/[A-Z]/)) strength++;
-		if (pass.match(/\d/)) strength++;
-		if (pass.match(/[^a-zA-Z\d]/)) strength++;    
+        if (pwd.match(/[a-z]/) && pwd.match(/[A-Z]/)) strength++;
+		if (pwd.match(/\d/)) strength++;
+		if (pwd.match(/[^a-zA-Z\d]/)) strength++;    
         return strength;
     };
     const strength = getStrength(password);
@@ -69,3 +69,5 @@ const PwdEvaluator =({ password }) => {
         </div>
     )
 }
+
+export default PwdEvaluator;

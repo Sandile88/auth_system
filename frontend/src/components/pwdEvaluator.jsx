@@ -1,6 +1,6 @@
 import { Check, X } from "lucide-react";
 
-const PasswordCriteria = ({ password }) => {
+const PwdCriteria = ({ password }) => {
     const criteria = [
         { label : "At least 8 characters", met: password.length >= 8 },
         { label : "Contains uppercase letter", met: /[A-Z]/.test(password) },
@@ -24,3 +24,23 @@ const PasswordCriteria = ({ password }) => {
         </div>
     );
 };
+
+const PwdEvaluator =({ password }) => {
+    const getStrength = ( pwd ) => {
+        let strength = 0;
+        if (pwd.length >= 8) strength++;
+        if (pass.match(/[a-z]/) && pass.match(/[A-Z]/)) strength++;
+		if (pass.match(/\d/)) strength++;
+		if (pass.match(/[^a-zA-Z\d]/)) strength++;    
+        return strength;
+    };
+    const strength = getStrength(password);
+
+    const getColour = ( strength ) => {
+        if (strength === 0) return "Very Weak";
+        if (strength === 1) return "Weak";
+        if (strength === 2) return "Fair";
+        if (strength === 3) return "Good";
+        return "Strong";
+    };
+}

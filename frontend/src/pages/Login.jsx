@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const [isLoading, setIsLoading] = useState("");
+  const isLoading = false;
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -47,8 +49,9 @@ const Login = () => {
         hover:to-sky-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        type="submit">
-        Login
+        type="submit"
+        disabled={isLoading}>
+        {isLoading ? <Loader className="w-6 h-6 animate-spin mx-auto" /> : "Login"}
         </motion.button>
 
       </form>

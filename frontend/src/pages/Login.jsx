@@ -21,7 +21,6 @@ const Login = () => {
         <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-white to-sky-300 text-transparent bg-clip-text">
           Welcome Back
         </h2>
-      </div>
       <form onSubmit={handleLogin}>
 
       <Input icon={Mail}
@@ -47,11 +46,11 @@ const Login = () => {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         type="submit">
-        Sign Up
+        Login
         </motion.button>
 
       </form>
-      
+      </div>
     </motion.div>
   )
 }

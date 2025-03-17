@@ -13,6 +13,8 @@ const Login = () => {
   }
 
   return (
+    <div className="min-h-screen flex items-center justify-center">
+
     <motion.div initial={{ opacity: 0, y:20 }}
     animate={{ opacity: 1, y:0 }}
     transition={{ duration: 0.5 }}
@@ -57,9 +59,9 @@ const Login = () => {
             <Link to={"/login"} className="text-blue-400 hover:underline">
             Sign up</Link>
           </p>
-
         </div>
     </motion.div>
+    </div>
   )
 }
 

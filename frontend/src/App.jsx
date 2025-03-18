@@ -1,4 +1,4 @@
-import { Login, SignUp } from './pages';
+import { Login, SignUp, VerifyEmail } from './pages';
 import { Routes, Route } from 'react-router-dom';
 
 
@@ -17,6 +17,7 @@ function App() {
                 <Route path="/" element={"Home"}/>
                 <Route path="/signup" element={<SignUp/>}/>
                 <Route path="/login" element={<Login/>}/>
+                <Route path="/verify-email" element={<VerifyEmail/>}/>
             </Routes>
 
         </div>

@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { motion } from 'motion/react'
+import { Input } from '../components/input'
+
 
 const VerifyEmail = () => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
+
+  handleChange = () => {
+
+  }
+  handleKeyDown = () => {
+    
+  }
 
   return (
     <div className="max-w-md w-full bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden">
@@ -15,6 +25,16 @@ const VerifyEmail = () => {
          <p className="text-sm text-gray-300 m-6">
           Enter the 6-digit code sent to your email address
         </p>
+
+        <form className="space-y-6">
+          <div className="flex justify-between">
+            {code.map((num, index)) => (
+              <Input
+              key={index} />
+            )}
+
+          </div>
+        </form>
 
       </motion.div>
     </div>

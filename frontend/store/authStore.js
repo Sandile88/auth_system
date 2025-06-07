@@ -1,13 +1,14 @@
-import {create} from  "zustand" //state management library
-import axios from "axios"
+import {create} from  "zustand"; //state management library
+import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth"
+const API_URL = "http://localhost:5000/api/auth";
+axios.defaults.withCredentials = true;
 export const useAuthStore = create((set) => ({
-    user:null,
-    isAuthenticated:false,
-    error:null,
-    isLoading:false,
-    isCheckingAuth:true,
+    user: null,
+    isAuthenticated: false,
+    error: null,
+    isLoading: false,
+    isCheckingAuth: true,
 
     signup: async (email, password, name) => {
         set({ isLoading: true, error: null});

@@ -5,7 +5,7 @@ import { createTokenAndSetCookie } from "../utils/createTokenAndSetCookie.js";
 import { sendResetSuccessEmail, sendVerificationEmail, sendWelcomeEmail, sendForgotPasswordEmail } from "../mailtrap/emails.js";
 
 export const signup = async (request, response) => {
-    const { name, email, password} = request.body;
+    const { email, password, name} = request.body;
 
     try {
         if(!name || !email || !password) {

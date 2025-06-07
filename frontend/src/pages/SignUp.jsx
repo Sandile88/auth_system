@@ -1,19 +1,32 @@
 import { motion } from 'motion/react'
 import React, { useState } from 'react'
 import { Input } from '../components/input'
-import { User, Mail, Lock } from 'lucide-react'
-import { Link } from 'react-router-dom';
+import { User, Mail, Lock, Loader } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom';
 import PwdEvaluator from '../components/pwdEvaluator'
+import { useAuthStore } from '../../store/authStore';
 
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  
+  const {signup, error, isLoading} = useAuthStore();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async(e) => {
     e.preventDefault();
+
+    try {
+      await signup(email, password, name);
+      navigate("/verify-email");
+    
+    } catch (error) {
+      console.log(error);
+    }
   }
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <motion.div 
@@ -44,14 +57,18 @@ const SignUp = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}/>
+              {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
               <PwdEvaluator password={password}/>
 
               <motion.button className="mt-5 w-full py-3 px-4  bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold full rounded-lg shadow-lg hover:from-blue-600
               hover:to-sky-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              type="submit">
-                Sign Up
+              type="submit"
+                disable={isLoading}
+                >
+                {isLoading ? <Loader className=' animate-spin mx-auto' size={24} /> : "Sign Up"}
+
               </motion.button>
             </form>
         </div>

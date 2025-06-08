@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { easeOut, motion } from 'motion/react'
+import { motion } from 'motion/react'
 import { Input } from '../components/input'
 import { useAuthStore } from '../../store/authStore';
 import toast from "react-hot-toast";
@@ -11,9 +11,7 @@ const VerifyEmail = () => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
-  // const isLoading = false;
-
-  const {error, isLoading, VerifyEmail} = useAuthStore();
+  const {error, isLoading, verifyEmail} = useAuthStore();
 
   const  handleChange = ( index, value) => {
     const newCode = [...code];
@@ -55,7 +53,7 @@ const VerifyEmail = () => {
     e.preventDefault();
     const verificationCode = code.join("");
     try {
-        // await VerifyEmail(verificationCode);
+        await verifyEmail(verificationCode);
         navigate("/");
         toast.success("Email verified successfully")
     } catch (error) {

@@ -1,14 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { motion } from 'motion/react'
+import { easeOut, motion } from 'motion/react'
 import { Input } from '../components/input'
+import { useAuthStore } from '../../store/authStore';
+import toast from "react-hot-toast";
+
 
 
 const VerifyEmail = () => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
-  const isLoading = false;
+  // const isLoading = false;
+
+  const {error, isLoading, VerifyEmail} = useAuthStore();
 
   const  handleChange = ( index, value) => {
     const newCode = [...code];
@@ -46,10 +51,17 @@ const VerifyEmail = () => {
 		}
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const verificationCode = code.join("");
-    console.log(`Verification code submitted: ${verificationCode}`)
+    try {
+        // await VerifyEmail(verificationCode);
+        navigate("/");
+        toast.success("Email verified successfully")
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(`Verification code submitted: ${verificationCode}`)
   }
 
   // auto submit when all fields are filled
@@ -87,6 +99,7 @@ const VerifyEmail = () => {
               />
             ))}
           </div>
+          {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
           <motion.button
 						whileHover={{ scale: 1.05 }}
 						whileTap={{ scale: 0.95 }}

@@ -1,5 +1,7 @@
 import { Login, SignUp, VerifyEmail } from './pages';
 import { Routes, Route } from 'react-router-dom';
+import { Toaster } from "react-hot-toast";
+
 
 
 function App() {
@@ -19,7 +21,7 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/verify-email" element={<VerifyEmail/>}/>
             </Routes>
-
+            <Toaster/>
         </div>
     </div>
   )

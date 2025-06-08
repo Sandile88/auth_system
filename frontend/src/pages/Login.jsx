@@ -16,7 +16,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     await login(email, password);
-   
   }
 
   return (
@@ -49,7 +48,7 @@ const Login = () => {
           Forgot password?
           </Link>
       </div>
-        {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
+      {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
 
 
        <motion.button className="mt-5 w-full py-3 px-4  bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold full rounded-lg shadow-lg hover:from-blue-600

@@ -18,7 +18,7 @@ export const useAuthStore = create((set) => ({
             const response = await axios.post(`${API_URL}/signup`, { email, password, name });
             set({ user: response.data.user, isAuthenticated: true, isLoading: false});
         } catch (error) {
-            set({ user: error.response.data.message || "Error signing up", isLoading: false});
+            set({ error: error.response.data.message || "Error signing up", isLoading: false});
             throw error;  
         }
     },
@@ -29,7 +29,7 @@ export const useAuthStore = create((set) => ({
             const response = await axios.post(`${API_URL}/login`, { email, password });
             set({ isAuthenticated: true, user: response.data.user, error: null, isLoading: false});
         } catch (error) {
-            set({ user: error.response?.data?.message || "Error logging in", isLoading: false});
+            set({ error: error.response?.data?.message || "Error logging in", user: null,  isLoading: false});
             throw error;  
         }
     },

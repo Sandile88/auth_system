@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 // import { formatDate } from "../utils/date";
 import { useAuthStore } from "../../store/authStore";
 import { formatDate } from "../../utils/date";
+import { Button } from "../components/button";
 
 const Home = () => {
 	const { user, logout } = useAuthStore();
@@ -62,7 +63,7 @@ const Home = () => {
 				transition={{ delay: 0.6 }}
 				className='mt-4'
 			>
-				<motion.button
+				{/* <motion.button
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					onClick={handleLogout}
@@ -71,7 +72,10 @@ const Home = () => {
 				 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900'
 				>
 					Logout
-				</motion.button>
+				</motion.button> */}
+				<Button onClick={handleLogout} type="submit">
+					Logout
+				</Button>
 			</motion.div>
 		</motion.div>
         </div>

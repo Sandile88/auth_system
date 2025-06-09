@@ -2,10 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../../store/authStore";
 import { useNavigate, useParams } from "react-router-dom";
-// import Input from "../components/Input";
-import { AlignCenter, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
 import toast from "react-hot-toast";
 import { Input } from "../components/input";
+import { Button } from "../components/button";
 
 const ResetPassword = () => {
 	const [password, setPassword] = useState("");
@@ -71,7 +71,7 @@ const ResetPassword = () => {
 
                     {/* create a resuable button for below just like input */}
 
-					<motion.button
+					{/* <motion.button
 						whileHover={{ scale: 1.02 }}
 						whileTap={{ scale: 0.98 }}
 						className='w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-sky-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200'
@@ -79,7 +79,10 @@ const ResetPassword = () => {
 						disabled={isLoading}
 					>
 						{isLoading ? "Resetting..." : "Set New Password"}
-					</motion.button>
+					</motion.button> */}
+                    <Button type="submit" isLoading={isLoading}>
+						{isLoading ? "Resetting..." : "Set New Password"}
+                    </Button>
 				</form>
 			</div>
 		</motion.div>

@@ -4,6 +4,7 @@ import { motion } from 'motion/react'
 import { Input } from '../components/input'
 import { useAuthStore } from '../../store/authStore';
 import toast from "react-hot-toast";
+import { Button } from '../components/button';
 
 
 
@@ -98,7 +99,7 @@ const VerifyEmail = () => {
             ))}
           </div>
           {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
-          <motion.button
+          {/* <motion.button
 						whileHover={{ scale: 1.05 }}
 						whileTap={{ scale: 0.95 }}
 						type='submit'
@@ -106,7 +107,10 @@ const VerifyEmail = () => {
 						className='w-full bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:from-blue-600 hover:to-sky-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50'
 					>
 						{isLoading ? "Verifying..." : "Verify Email"}
-					</motion.button>
+					</motion.button> */}
+          <Button type="submit" isLoading={isLoading}>
+              {isLoading ? "Verifying..." : "Verify Email"}
+          </Button>
         </form> 
 
       </motion.div>

@@ -5,6 +5,7 @@ import { User, Mail, Lock, Loader } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom';
 import PwdEvaluator from '../components/pwdEvaluator'
 import { useAuthStore } from '../../store/authStore';
+import { Button } from '../components/button';
 
 
 const SignUp = () => {
@@ -60,7 +61,7 @@ const SignUp = () => {
               {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
               <PwdEvaluator password={password}/>
 
-              <motion.button className="mt-5 w-full py-3 px-4  bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold full rounded-lg shadow-lg hover:from-blue-600
+              {/* <motion.button className="mt-5 w-full py-3 px-4  bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold full rounded-lg shadow-lg hover:from-blue-600
               hover:to-sky-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -69,7 +70,10 @@ const SignUp = () => {
                 >
                 {isLoading ? <Loader className=' animate-spin mx-auto' size={24} /> : "Sign Up"}
 
-              </motion.button>
+              </motion.button> */}
+              <Button type="submit" isLoading={isLoading} className="mt-2">
+                {isLoading ? <Loader className=' animate-spin mx-auto' size={24} /> : "Sign Up"}
+              </Button>
             </form>
         </div>
         <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center"> 

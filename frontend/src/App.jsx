@@ -1,4 +1,4 @@
-import { Login, SignUp, VerifyEmail,  Home } from './pages';
+import { Login, SignUp, VerifyEmail,  Home, ForgotPassword } from './pages';
 import { Navigate, Routes, Route } from 'react-router-dom';
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from '../store/authStore';
@@ -32,7 +32,7 @@ const RedirectVerifiedUser = ({children}) => {
 }
 
 function App() { 
-  const {isCheckingAuth, checkAuth, isAuthenticated, user} = useAuthStore();
+  const {isCheckingAuth, checkAuth} = useAuthStore();
 
   useEffect(() => {
     checkAuth();
@@ -69,6 +69,11 @@ function App() {
                   </RedirectVerifiedUser>
                 }/>
                 <Route path="/verify-email" element={<VerifyEmail/>}/>
+                <Route path="/forgot-password" element={
+                  <RedirectVerifiedUser>
+                    <ForgotPassword/>
+                  </RedirectVerifiedUser>
+                }/>
             </Routes>
             <Toaster/>
         </div>

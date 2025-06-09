@@ -1,4 +1,4 @@
- import { User } from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 import { createTokenAndSetCookie } from "../utils/createTokenAndSetCookie.js";

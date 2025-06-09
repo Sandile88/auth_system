@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import LoadingSpinner from './components/LoadingSpinner';
 import ResetPassword from './pages/ResetPassword';
 
+
 //protect routes that require auth
 const ProtectedRoute = ({ children }) => {
   const {isAuthenticated, user} = useAuthStore();
@@ -20,7 +21,6 @@ const ProtectedRoute = ({ children }) => {
 
   return children;
 }
-
 
 //redirecting authenticated users to home page
 const RedirectVerifiedUser = ({children}) => {
@@ -38,9 +38,6 @@ function App() {
   useEffect(() => {
     checkAuth();
   }, [checkAuth])
-
-  // console.log("isAuthenticated", isAuthenticated);
-  // console.log("User", user);
 
   if (isCheckingAuth) return <LoadingSpinner/>
 

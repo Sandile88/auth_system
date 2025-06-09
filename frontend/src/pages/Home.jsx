@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-// import { formatDate } from "../utils/date";
 import { useAuthStore } from "../../store/authStore";
 import { formatDate } from "../../utils/date";
 import { Button } from "../components/button";
@@ -63,17 +62,7 @@ const Home = () => {
 				transition={{ delay: 0.6 }}
 				className='mt-4'
 			>
-				{/* <motion.button
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-					onClick={handleLogout}
-					className='w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-sky-600 text-white 
-				font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-sky-700
-				 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900'
-				>
-					Logout
-				</motion.button> */}
-				<Button onClick={handleLogout} type="submit">
+				<Button onClick={handleLogout} type="button">
 					Logout
 				</Button>
 			</motion.div>

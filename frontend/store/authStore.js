@@ -1,9 +1,10 @@
 import {create} from  "zustand"; //state management library
 import axios from "axios";
-// import { verify } from "crypto";
+
 
 const API_URL = "http://localhost:5000/api/auth";
 axios.defaults.withCredentials = true;
+
 export const useAuthStore = create((set) => ({
     user: null,
     isAuthenticated: false,

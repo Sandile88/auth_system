@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../../store/authStore";
 import { Input } from "../components/input";
-import { ArrowLeft, Loader, Mail } from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/button";
 
@@ -46,16 +46,8 @@ const ForgotPassword = () => {
 							onChange={(e) => setEmail(e.target.value)}
 							required
 						/>
-						{/* <motion.button
-							whileHover={{ scale: 1.02 }}
-							whileTap={{ scale: 0.98 }}
-							className='w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-sky-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200'
-							type='submit'
-						>
-							{isLoading ? <Loader className='size-6 animate-spin mx-auto' /> : "Send Reset Link"}
-						</motion.button> */}
 						 <Button type="submit" isLoading={isLoading}>
-							{isLoading ? <Loader className='size-6 animate-spin mx-auto' /> : "Send Reset Link"}
+							Send Reset Link
 						</Button>
 					</form>
 				) : (

@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { useAuthStore } from '../store/authStore';
 import { useEffect } from 'react';
 import LoadingSpinner from './components/LoadingSpinner';
+import ResetPassword from './pages/ResetPassword';
 
 //protect routes that require auth
 const ProtectedRoute = ({ children }) => {
@@ -72,6 +73,11 @@ function App() {
                 <Route path="/forgot-password" element={
                   <RedirectVerifiedUser>
                     <ForgotPassword/>
+                  </RedirectVerifiedUser>
+                }/>
+                <Route path="/reset-password/:token" element={
+                  <RedirectVerifiedUser>
+                    <ResetPassword/>
                   </RedirectVerifiedUser>
                 }/>
             </Routes>

@@ -77,6 +77,9 @@ function App() {
                     <ResetPassword/>
                   </RedirectVerifiedUser>
                 }/>
+
+                {/* catching all routes */}
+                <Route path="*" element={<Navigate to="/" replace/>}/>
             </Routes>
             <Toaster/>
         </div>
